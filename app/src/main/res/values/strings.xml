@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">PHPGroup23</string>
+    <string name="welcome_to_personal_health_record">Welcome to Personal Health Record</string>
+    <string name="get_started_as_doctor">Health Professional</string>
+    <string name="heartbeat_image">Heartbeat Image</string>
+    <string name="welcome_php">Welcome To Health Professional Page</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="register">Register</string>
+    <string name="sign_up_an_account">Need an account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="todo">TODO</string>
+    <string name="get_started_as">Get Started As</string>
+    <string name="get_started_as_patient">Patient</string>
+    <string name="welcome_patient_php">Welcome to patient login page</string>
+    <string name="doctor_registration">Health Professional Registration</string>
+    <string name="full_name">Full name</string>
+    <string name="email">Email</string>
+    <string name="health_registration_number">Health registration number</string>
+    <string name="telephone_number">Telephone number</string>
+    <string name="doctor_reg">Register</string>
+    <string name="password">Password</string>
+    <string name="patient_registration">Patient Registration</string>
+    <string name="welcome">Welcome</string>
+</resources>
