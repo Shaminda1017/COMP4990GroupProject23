@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:background="@color/celadon_green">
+    android:background="@color/purple">
 
     <ImageView
         android:id="@+id/icon_php"
@@ -29,6 +29,7 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="80dp"
         android:text="@string/patient_registration"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/et_patient_full_name"
