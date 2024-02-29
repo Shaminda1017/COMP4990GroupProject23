@@ -56,7 +56,7 @@ public class PatientRegister extends AppCompatActivity {
                 } else {
                     boolean checkUser = DB.checkUsername(email);
                     if (!checkUser) {
-                        boolean insert = DB.insertData(email, password);
+                        boolean insert = DB.insertData(email, password, "patient");
                         if (insert) {
                             Toast.makeText(PatientRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), PatientLogin.class);

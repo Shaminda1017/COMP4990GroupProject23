@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DoctorLogin extends AppCompatActivity{
 
     Button btn_sign_in, btn_register;
+    EditText et_doc_email, et_doc_pw;
+    DBHelper DB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,16 +24,32 @@ public class DoctorLogin extends AppCompatActivity{
 
         btn_sign_in = findViewById(R.id.sign_in_btn_doctor);
         btn_register = findViewById(R.id.register_btn_doctor);
+        et_doc_email = findViewById(R.id.et_doctor_email);
+        et_doc_pw = findViewById(R.id.et_password);
+
+        DB = new DBHelper(this);
 
 
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("UserLogin", "Button Clicked - Starting UserHomePage");
+                String username = et_doc_email.getText().toString();
+                String password = et_doc_pw.getText().toString();
 
-                // Redirect to UserHomePage or perform other actions for sign-in
-                Intent intent_sign_in = new Intent(DoctorLogin.this, DoctorHome.class);
-                startActivity(intent_sign_in);
+                if(username.equals("") || password.equals(""))
+                    Toast.makeText(DoctorLogin.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                else {
+                    Boolean checkuserpass = DB.checkUsernamePassword(username, password, "doctor");
+                    if(checkuserpass) {
+                        Toast.makeText(DoctorLogin.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                        Intent intent_patient_log_in = new Intent(DoctorLogin.this, DoctorHome.class);
+                        startActivity(intent_patient_log_in);
+                    } else {
+                        Toast.makeText(DoctorLogin.this, "Failed credentials", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
             }
         });
 

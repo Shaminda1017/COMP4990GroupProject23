@@ -28,6 +28,7 @@ public class PatientLogin extends AppCompatActivity {
         btn_patient_register = findViewById(R.id.patient_register_btn);
         et_email = findViewById(R.id.patient_email);
         et_password = findViewById(R.id.patient_password);
+
         DB = new DBHelper(this);
 
 
@@ -41,7 +42,7 @@ public class PatientLogin extends AppCompatActivity {
                 if(username.equals("") || password.equals(""))
                     Toast.makeText(PatientLogin.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 else {
-                    Boolean checkuserpass = DB.checkUsernamePassword(username, password);
+                    Boolean checkuserpass = DB.checkUsernamePassword(username, password, "patient");
                     if(checkuserpass) {
                         Toast.makeText(PatientLogin.this, "Sign in successful", Toast.LENGTH_SHORT).show();
                         Intent intent_patient_log_in = new Intent(PatientLogin.this, PatientHome.class);
