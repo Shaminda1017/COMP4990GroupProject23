@@ -1,5 +1,12 @@
 package com.example.a1;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PatientRegister extends AppCompatActivity {
     Button btn_register;
     EditText et_patient_name, et_patient_email, et_patient_reg, et_patient_phone, et_patient_pw, et_patient_re_pw;
+    DBHelper DB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +28,14 @@ public class PatientRegister extends AppCompatActivity {
         setContentView(R.layout.activity_patient_register);
 
         btn_register = findViewById(R.id.patient_registration_button);
+        et_patient_name = findViewById(R.id.et_patient_full_name);
+        et_patient_email = findViewById(R.id.et_patient_email);
+        et_patient_reg = findViewById(R.id.et_patient_registration);
+        et_patient_phone = findViewById(R.id.phone_patient);
+        et_patient_pw = findViewById(R.id.et_patient_password);
+        et_patient_re_pw = findViewById(R.id.et_patient_re_password);
+
+        DB = new DBHelper(this);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,22 +49,27 @@ public class PatientRegister extends AppCompatActivity {
                 String password = et_patient_pw.getText().toString().trim();
                 String rePassword = et_patient_re_pw.getText().toString().trim();
 
-                // Perform registration logic (example: check if fields are not empty)
-                if (!fullName.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !regNumber.isEmpty() && !password.isEmpty() && password.equals(rePassword)) {
-                    // Registration successful
-                    Log.d("UserLogin", "Registration Successful");
-
-                    // Show a toast message
-                    Toast.makeText(PatientRegister.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-
+                if (fullName.equals("") || email.equals("") || phone.equals("") || regNumber.equals("") || password.equals("") || rePassword.equals("")) {
+                    Toast.makeText(PatientRegister.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(rePassword)) {
+                    Toast.makeText(PatientRegister.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Registration failed
-                    Log.d("UserLogin", "Registration Failed");
-
-                    // Show a toast message
-                    Toast.makeText(PatientRegister.this, "Registration Failed. Please check your input.", Toast.LENGTH_SHORT).show();
+                    boolean checkUser = DB.checkUsername(email);
+                    if (!checkUser) {
+                        boolean insert = DB.insertData(email, password);
+                        if (insert) {
+                            Toast.makeText(PatientRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), PatientLogin.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(PatientRegister.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(PatientRegister.this, "User already exists", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
     }
 }
+

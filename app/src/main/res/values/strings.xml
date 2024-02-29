@@ -24,4 +24,5 @@
     <string name="password">Password</string>
     <string name="patient_registration">Patient Registration</string>
     <string name="welcome">Welcome</string>
+    <string name="re_enter_password">Re Enter Password</string>
 </resources>

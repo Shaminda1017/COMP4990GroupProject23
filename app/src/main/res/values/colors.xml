@@ -7,4 +7,6 @@
     <color name="off_white">#FFFFFF</color>
     <color name="lavender">#E6E6FA</color>
     <color name="purple">#D2B4DE</color>
+    <color name="dodger_blue">#1289BF</color>
+    <color name="dark_blue">#134072</color>
 </resources>
