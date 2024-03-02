@@ -44,9 +44,8 @@ public class DoctorRegister extends AppCompatActivity {
                 String regNumber = et_doctor_reg.getText().toString().trim();
                 String password = et_doctor_pw.getText().toString().trim();
                 String rePassword = et_doctor_re_pw.getText().toString().trim();
-                String userType = et_doctor_email.getText().toString().trim();
 
-                if (fullName.equals("") || email.equals("") || phone.equals("") || regNumber.equals("") || password.equals("") || rePassword.equals("") || userType.equals("")) {
+                if (fullName.equals("") || email.equals("") || phone.equals("") || regNumber.equals("") || password.equals("") || rePassword.equals("")) {
                     Toast.makeText(DoctorRegister.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(rePassword)) {
                     Toast.makeText(DoctorRegister.this, "Passwords do not match", Toast.LENGTH_SHORT).show();

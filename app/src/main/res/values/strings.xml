@@ -25,11 +25,4 @@
     <string name="patient_registration">Patient Registration</string>
     <string name="welcome">Welcome</string>
     <string name="re_enter_password">Re Enter Password</string>
-    <string name="select_user_type">Select User Type</string>
-    <string-array name="user_types">
-        <item>Select User Type</item>
-        <item>Patient</item>
-        <item>Doctor</item>
-    </string-array>
-
 </resources>

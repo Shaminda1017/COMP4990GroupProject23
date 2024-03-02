@@ -36,9 +36,8 @@ public class DoctorLogin extends AppCompatActivity{
                 Log.d("UserLogin", "Button Clicked - Starting UserHomePage");
                 String username = et_doc_email.getText().toString();
                 String password = et_doc_pw.getText().toString();
-                String userType = et_doc_email.getText().toString();
 
-                if(username.equals("") || password.equals("") || userType.equals(""))
+                if(username.equals("") || password.equals(""))
                     Toast.makeText(DoctorLogin.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 else {
                     Boolean checkuserpass = DB.checkUsernamePassword(username, password, "doctor");
