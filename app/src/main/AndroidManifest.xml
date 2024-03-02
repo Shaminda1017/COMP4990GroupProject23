@@ -41,8 +41,33 @@
         <activity android:name=".DoctorHome"
             android:exported="false"/>
 
-        <activity android:name=".ActivityRegister"
+        <activity android:name=".DoctorScheduleAppointment"
             android:exported="false"/>
+
+        <activity android:name=".DoctorPatientVisit"
+            android:exported="false"/>
+
+        <activity android:name=".DoctorCheckInbox"
+            android:exported="false"/>
+
+        <activity android:name=".DoctorCheckReports"
+            android:exported="false"/>
+
+        <activity android:name=".PatientBookApt"
+            android:exported="false"/>
+
+        <activity android:name=".PatientCheckInbox"
+            android:exported="false"/>
+
+        <activity android:name=".PatientGrantPermission"
+            android:exported="false"/>
+
+        <activity android:name=".PatientMedHistory"
+            android:exported="false"/>
+
+        <activity android:name=".PatientUploadDoc"
+            android:exported="false"/>
+
 
     </application>
 
