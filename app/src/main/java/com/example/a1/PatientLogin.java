@@ -24,10 +24,10 @@ public class PatientLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_login);
 
-        btn_patient_sign_in = findViewById(R.id.patient_sign_in_btn);
-        btn_patient_register = findViewById(R.id.patient_register_btn);
-        et_email = findViewById(R.id.patient_email);
-        et_password = findViewById(R.id.patient_password);
+//        btn_patient_sign_in = findViewById(R.id.patient_sign_in_btn);
+//        btn_patient_register = findViewById(R.id.patient_register_btn);
+//        et_email = findViewById(R.id.patient_email);
+//        et_password = findViewById(R.id.patient_password);
 
         DB = new DBHelper(this);
 

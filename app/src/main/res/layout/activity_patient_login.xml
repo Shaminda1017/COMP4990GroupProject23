@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#103946"
     android:padding="16dp">
 
 
-<!-- Image -->
+    <!-- Image -->
 
 
     <!-- CardView for Sign In -->
+
+    <TextView
+        android:id="@+id/textViewHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/sign_in"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="100dp"
 
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/logo"
+
         android:scaleType="centerCrop"
         android:src="@drawable/img"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.91"
+
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeading"
         app:tint="@color/black" />
 
     <androidx.cardview.widget.CardView
@@ -63,7 +81,9 @@
                     android:hint="@string/email"
                     android:isScrollContainer="false"
                     android:pointerIcon="arrow"
-                    app:startIconDrawable="@android:drawable/btn_minus" />
+
+                    android:drawableEnd="@drawable/baseline_email_24"
+                    app:startIconDrawablePadding="20dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,6 +94,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+
                 app:layout_constraintTop_toBottomOf="@id/emailInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -81,8 +102,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    app:startIconDrawable="@drawable/lock"
+
                     android:hint="@string/password"
+
+                    android:drawableEnd="@drawable/baseline_key_24"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -90,10 +113,11 @@
             <!-- Sign In Button -->
             <Button
                 android:id="@+id/buttonSignIn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/sign_in"
+                android:text="@string/signIn"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:backgroundTint="#103946"
@@ -138,4 +162,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
