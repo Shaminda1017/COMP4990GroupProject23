@@ -13,10 +13,17 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
+    private ArrayList<MyDataSet> dataList;
+    private OnItemClickListener onItemClickListener;
 
-    ArrayList<MyDataSet> dataList;
+    public MyAdapter(ArrayList<MyDataSet> dataList, OnItemClickListener onItemClickListener) {
+        this.dataList = dataList;
+        this.onItemClickListener = onItemClickListener;
+    }
 
-    public MyAdapter(ArrayList<MyDataSet> data) {this.dataList = data;}
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     @NonNull
     @Override
@@ -30,6 +37,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         MyDataSet data = dataList.get(position);
         holder.imageView.setImageResource(data.getImage());
         holder.textView.setText(data.getText());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -37,11 +51,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return dataList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
-        public MyViewHolder(View itemView){
+        public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view);
             textView = itemView.findViewById(R.id.tv_card);
