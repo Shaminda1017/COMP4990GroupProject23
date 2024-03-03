@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     android:gravity="center"
-    android:background="@color/dodger_blue">
+    android:background="#2A9CC1">
 
     <TextView
         android:id="@+id/textView"
@@ -15,7 +16,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/welcome_to_personal_health_record"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@android:color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -30,7 +31,8 @@
         android:layout_marginTop="110dp"
         android:layout_marginEnd="100dp"
         android:contentDescription="@string/heartbeat_image"
-        android:src="@drawable/heartbeat"
+        android:src="@drawable/img"
+        app:tint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -45,6 +47,8 @@
         android:layout_marginBottom="5dp"
         android:text="@string/get_started_as_doctor"
         android:textSize="20sp"
+        android:elevation="16dp"
+        android:backgroundTint="#103946"
         app:layout_constraintBottom_toTopOf="@+id/get_started_btn_patient"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getStarted"
@@ -60,6 +64,7 @@
         android:layout_marginBottom="50dp"
         android:text="@string/get_started_as_patient"
         android:textSize="20sp"
+        android:backgroundTint="#103946"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

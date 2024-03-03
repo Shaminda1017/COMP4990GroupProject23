@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,6 +15,9 @@
         android:theme="@style/Theme.A1"
         tools:targetApi="31">
         <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,7 +28,22 @@
         </activity>
         <activity
             android:name=".DoctorLogin"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".PatientLogin"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorRegister"
+            android:exported="false" />
+        <activity
+            android:name=".PatientRegister"
+            android:exported="false" />
+        <activity
+            android:name=".PatientHome"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorHome"
+            android:exported="false" />
 
         <activity android:name=".PatientLogin"
             android:exported="false"/>
@@ -67,7 +86,6 @@
 
         <activity android:name=".PatientUploadDoc"
             android:exported="false"/>
-
 
     </application>
 
