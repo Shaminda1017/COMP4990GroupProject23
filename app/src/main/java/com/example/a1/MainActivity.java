@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         btn_gerStarted_patient = findViewById(R.id.get_started_btn_patient);
 
 
-
         btn_gerStarted_patient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

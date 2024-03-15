@@ -1,36 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
     android:background="@color/dodger_blue">
 
-    <ImageView
-        android:id="@+id/icon_php"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:contentDescription="@string/heartbeat_image"
-        android:src="@drawable/img_logo" />
-
-    <TextView
-        android:id="@+id/tv_patient_registration"
+    <!-- Content from LinearLayout -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="80dp"
-        android:text="Doctor check patient report"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:id="@+id/linear_layout"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/icon_php"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/heartbeat_image"
+            android:src="@drawable/img_logo" />
+
+        <TextView
+            android:id="@+id/tv_patient_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="80dp"
+            android:text="patient upload document  page"
+            android:textAlignment="center"
+            android:typeface="serif"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <!-- Constraints for the LinearLayout -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="0dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/patient_upload_doc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Add File here"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/doctor_upload_file_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Upload File"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/patient_upload_doc"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/doc_dawnload_file_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Download File"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/doctor_upload_file_btn"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
 
     <Button
         android:id="@+id/back_to_home_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Home" />
+        android:layout_gravity="center"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="22dp"
+        android:text="Back to Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

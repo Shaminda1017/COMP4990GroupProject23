@@ -18,11 +18,12 @@
     <string name="doctor_registration">Health Professional Registration</string>
     <string name="full_name">Full name</string>
     <string name="email">Email</string>
-    <string name="health_registration_number">Health registration number</string>
+    <string name="username_doctor">Username</string>
     <string name="telephone_number">Telephone number</string>
     <string name="doctor_reg">Register</string>
     <string name="password">Password</string>
     <string name="patient_registration">Patient Registration</string>
     <string name="welcome">Welcome</string>
     <string name="re_enter_password">Re Enter Password</string>
+    <string name="enter_username">Enter Username</string>
 </resources>
