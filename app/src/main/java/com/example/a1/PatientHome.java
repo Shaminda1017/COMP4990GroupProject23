@@ -2,17 +2,14 @@ package com.example.a1;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class PatientHome extends AppCompatActivity implements MyAdapter.OnItemClickListener {
     ArrayList<MyDataSet> dataSets = new ArrayList<>();
-
     RecyclerView recyclerView;
 
     @Override
@@ -34,23 +31,24 @@ public class PatientHome extends AppCompatActivity implements MyAdapter.OnItemCl
         MyAdapter myAdapter = new MyAdapter(dataSets, this);
         recyclerView.setAdapter(myAdapter);
     }
+
     @Override
     public void onItemClick(int position) {
         // Open appropriate activity based on clicked item
         switch (position) {
             case 0:
                 // Open Schedule Appointment activity
-                startActivity(new Intent(PatientHome.this, DoctorScheduleAppointment.class));
+                startActivity(new Intent(PatientHome.this, PatientBookApt.class));
                 break;
             case 1:
                 // Open Check Your Inbox activity
-                startActivity(new Intent(PatientHome.this, DoctorCheckInbox.class));
+                startActivity(new Intent(PatientHome.this, PatientCheckInbox.class));
                 break;
             case 2:
-                startActivity(new Intent(PatientHome.this, DoctorPatientVisit.class));
+                startActivity(new Intent(PatientHome.this, PatientGrantPermission.class));
                 break;
             case 3:
-                startActivity(new Intent(PatientHome.this, DoctorCheckReports.class));
+                startActivity(new Intent(PatientHome.this, PatientUploadDoc.class));
                 break;
             case 4:
                 startActivity(new Intent(PatientHome.this, PatientMedHistory.class));

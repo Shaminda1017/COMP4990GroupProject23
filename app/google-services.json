@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "663846340837",
+    "project_id": "php-group-23",
+    "storage_bucket": "php-group-23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663846340837:android:1bcaa21c0919b81c456c0c",
+        "android_client_info": {
+          "package_name": "com.example.a1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzeJDhcleg2NsuIFUMbr1MwxeVR9dAJoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

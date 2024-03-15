@@ -1,5 +1,4 @@
 package com.example.a1;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,14 +7,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class DoctorLogin extends AppCompatActivity{
+import com.example.a1.DoctorHome;
+import com.example.a1.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
+
+public class DoctorLogin extends AppCompatActivity {
 
     Button btn_sign_in, btn_register;
-    EditText et_doc_email, et_doc_pw;
-    DBHelper DB;
+    EditText et_userName, et_doc_pw;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,35 +34,19 @@ public class DoctorLogin extends AppCompatActivity{
 
         btn_sign_in = findViewById(R.id.sign_in_btn_doctor);
         btn_register = findViewById(R.id.register_btn_doctor);
-        et_doc_email = findViewById(R.id.et_doctor_email);
+        et_userName = findViewById(R.id.et_doctor_username);
         et_doc_pw = findViewById(R.id.et_password);
-
-        DB = new DBHelper(this);
-
 
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("UserLogin", "Button Clicked - Starting UserHomePage");
-                String username = et_doc_email.getText().toString();
-                String password = et_doc_pw.getText().toString();
+                if (!validateUserName() || !validateUserPassword()) {
 
-                if(username.equals("") || password.equals(""))
-                    Toast.makeText(DoctorLogin.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-                else {
-                    Boolean checkuserpass = DB.checkUsernamePassword(username, password, "doctor");
-                    if(checkuserpass) {
-                        Toast.makeText(DoctorLogin.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                        Intent intent_patient_log_in = new Intent(DoctorLogin.this, DoctorHome.class);
-                        startActivity(intent_patient_log_in);
-                    } else {
-                        Toast.makeText(DoctorLogin.this, "Failed credentials", Toast.LENGTH_SHORT).show();
-                    }
+                } else {
+                    checkUser();
                 }
-
             }
         });
-
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +54,67 @@ public class DoctorLogin extends AppCompatActivity{
                 startActivity(intent_doctor_reg);
             }
         });
-
     }
+
+    public Boolean validateUserName() {
+        String val = et_userName.getText().toString();
+        if (val.isEmpty()) {
+            et_userName.setError("User cannot be empty");
+            return false;
+        } else {
+            et_userName.setError(null);
+            return true;
+        }
+    }
+
+    public Boolean validateUserPassword() {
+        String valP = et_doc_pw.getText().toString();
+        if (valP.isEmpty()) {
+            et_doc_pw.setError("Password cannot be empty");
+            return false;
+        } else {
+            et_doc_pw.setError(null);
+            return true;
+        }
+    }
+
+    public void checkUser() {
+        String username = et_userName.getText().toString().trim();
+        String password = et_doc_pw.getText().toString().trim();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Doctors");
+        Query checkUserDB = reference.orderByChild("userName").equalTo(username);
+
+        checkUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                        String pwFromDB = userSnapshot.child("password").getValue(String.class);
+                        if (pwFromDB != null && pwFromDB.equals(password)) {
+                            // Passwords match, login successful
+                            Intent intent = new Intent(DoctorLogin.this, DoctorHome.class);
+                            startActivity(intent);
+                            return;
+                        } else {
+                            // Passwords don't match
+                            et_doc_pw.setError("Invalid credentials");
+                            et_doc_pw.requestFocus();
+                            return;
+                        }
+                    }
+                } else {
+                    // User doesn't exist
+                    et_userName.setError("User does not exist");
+                    et_userName.requestFocus();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
+            }
+        });
+    }
+
 }
