@@ -26,4 +26,6 @@
     <string name="welcome">Welcome</string>
     <string name="re_enter_password">Re Enter Password</string>
     <string name="enter_username">Enter Username</string>
+    <string name="specialization">Specialization</string>
+    <string name="hospital">Hospital</string>
 </resources>

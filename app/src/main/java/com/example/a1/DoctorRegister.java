@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DoctorRegister extends AppCompatActivity {
     Button btn_register;
-    EditText et_doctor_name, et_doctor_email, et_doctor_username, phone_doctor, et_doctor_password, et_doctor_re_password;
+    EditText et_doctor_name, et_doctor_email, et_doctor_username, phone_doctor, et_doctor_password, et_doctor_re_password, et_doctor_hos, et_doctor_special;
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -35,6 +35,8 @@ public class DoctorRegister extends AppCompatActivity {
         phone_doctor = findViewById(R.id.phone_doctor);
         et_doctor_password = findViewById(R.id.et_doctor_password);
         et_doctor_re_password = findViewById(R.id.et_doctor_re_password);
+        et_doctor_hos = findViewById(R.id.et_doctor_hospital);
+        et_doctor_special = findViewById(R.id.et_doctor_specialization);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,8 @@ public class DoctorRegister extends AppCompatActivity {
                 String email = et_doctor_email.getText().toString().trim();
                 String phone = phone_doctor.getText().toString().trim();
                 String userName = et_doctor_username.getText().toString().trim();
+                String hospital = et_doctor_hos.getText().toString().trim();
+                String special = et_doctor_special.getText().toString().trim();
                 String password = et_doctor_password.getText().toString().trim();
                 String rePassword = et_doctor_re_password.getText().toString().trim();
 
@@ -59,12 +63,12 @@ public class DoctorRegister extends AppCompatActivity {
                 Log.d("DoctorRegister", "Password: " + password);
                 Log.d("DoctorRegister", "Re-entered Password: " + rePassword);
 
-                if (fullName.isEmpty() || email.isEmpty() || phone.isEmpty() || userName.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
+                if (fullName.isEmpty() || email.isEmpty() || phone.isEmpty() || hospital.isEmpty() || special.isEmpty() || userName.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
                     Toast.makeText(DoctorRegister.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(rePassword)) {
                     Toast.makeText(DoctorRegister.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    HelperClass helperClass = new HelperClass(fullName, email, phone, userName, password);
+                    HelperClass helperClass = new HelperClass(fullName, email, phone, userName, password, hospital, special);
                     reference.child(userName).setValue(helperClass);
 
                     // Assuming 'users' node already exists in your Firebase Realtime Database
