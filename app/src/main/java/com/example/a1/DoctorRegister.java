@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.a1.HelperClass;
-import com.example.a1.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -68,7 +66,7 @@ public class DoctorRegister extends AppCompatActivity {
                 } else if (!password.equals(rePassword)) {
                     Toast.makeText(DoctorRegister.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    HelperClass helperClass = new HelperClass(fullName, email, phone, userName, password, hospital, special);
+                    HelperClass helperClass = new HelperClass(fullName, email);
                     reference.child(userName).setValue(helperClass);
 
                     // Assuming 'users' node already exists in your Firebase Realtime Database

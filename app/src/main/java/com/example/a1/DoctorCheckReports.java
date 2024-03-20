@@ -1,45 +1,47 @@
 package com.example.a1;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.google.firebase.FirebaseApp;
+public class DoctorCheckReports extends AppCompatActivity implements DoctorAdapter.OnItemClickListener {
 
-public class DoctorCheckReports extends AppCompatActivity {
-
-    Button backBtn, doc_upload_btn, doc_download_btn;
-    ImageView downloadedImageView;
+    private RecyclerView recyclerViewReports;
+    private DoctorAdapter doctorAdapter;
+    private List<HelperClass> reportItems;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_check_report);
 
-        // Initialize Firebase
-        FirebaseApp.initializeApp(this);
+        recyclerViewReports = findViewById(R.id.recycler_view_reports);
 
-        backBtn = findViewById(R.id.back_to_home_button);
-        doc_upload_btn = findViewById(R.id.doctor_upload_file_btn);
-        doc_download_btn = findViewById(R.id.doc_dawnload_file_btn);
-        //downloadedImageView = findViewById(R.id.downloaded_image_view);
+        reportItems = new ArrayList<>();
+        doctorAdapter = new DoctorAdapter(reportItems);
+        doctorAdapter.setOnItemClickListener(this); // Set item click listener
+        recyclerViewReports.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewReports.setAdapter(doctorAdapter);
 
+        Button backBtn = findViewById(R.id.back_to_home_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,77 +49,47 @@ public class DoctorCheckReports extends AppCompatActivity {
             }
         });
 
-        doc_download_btn.setOnClickListener(new View.OnClickListener() {
+        retrievePatientReports();
+    }
+
+    private void retrievePatientReports() {
+        DatabaseReference reportsRef = FirebaseDatabase.getInstance().getReference().child("Documents");
+
+        reportsRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                downloadFile();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                reportItems.clear(); // Clear previous data
+                for (DataSnapshot reportSnapshot : dataSnapshot.getChildren()) {
+                    String patientName = reportSnapshot.child("patientName").getValue(String.class);
+                    String fileName = reportSnapshot.child("fileName").getValue(String.class);
+                    String fileUrl = reportSnapshot.child("fileUrl").getValue(String.class);
+
+                    HelperClass reportItem = new HelperClass(patientName, fileName, fileUrl);
+                    reportItems.add(reportItem);
+                }
+                doctorAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle onCancelled
             }
         });
     }
 
-    private void downloadFile() {
-        // Create a reference to the file you want to download
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("path/to/your/file");
+    // Implement onItemClick method to handle item click
+    @Override
+    public void onItemClick(int position) {
+        // Get the clicked report item
+        HelperClass clickedItem = reportItems.get(position);
 
-        try {
-            // Create a temporary file
-            File localFile = File.createTempFile("file", "extension");
-
-            // Download the file to local storage
-            storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // Local file created successfully, display it
-                    displayDownloadedFile(localFile);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(DoctorCheckReports.this, "Failed to download file", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle file creation error
-        }
-    }
-
-    private void displayDownloadedFile(File localFile) {
-        // Check if the downloaded file is an image
-        if (localFile != null && localFile.exists()) {
-            // Set the image in the ImageView
-            downloadedImageView.setImageURI(Uri.fromFile(localFile));
+        // Open the URL associated with the clicked report in a web browser
+        String fileUrl = clickedItem.getFileUrl();
+        if (fileUrl != null && !fileUrl.isEmpty()) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl));
+            startActivity(browserIntent);
         } else {
-            Toast.makeText(this, "Downloaded file not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File URL is empty", Toast.LENGTH_SHORT).show();
         }
     }
 }
-
-
-//import android.os.Bundle;
-//import android.view.View;
-//import android.widget.Button;
-//
-//import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//public class DoctorCheckReports extends AppCompatActivity {
-//
-//    Button backBtn, doc_upload_btn, doc_dawnload_btn;
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_doctor_check_report);
-//
-//        backBtn = findViewById(R.id.back_to_home_button);
-//        doc_upload_btn = findViewById(R.id.doctor_upload_file_btn);
-//        doc_dawnload_btn = findViewById(R.id.doc_dawnload_file_btn);
-//        backBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//    }
-//}

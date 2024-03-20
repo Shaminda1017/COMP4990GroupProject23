@@ -22,7 +22,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="80dp"
-        android:text="Patient grant permission page"
+        android:text="@string/patient_grant_permission_page"
         android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="20sp" />
@@ -33,6 +33,13 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp"/>
+
+    <!-- Button to grant permission -->
+    <Button
+        android:id="@+id/grant_permission_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/grant_permission"/>
 
     <Button
         android:id="@+id/back_to_home_button"

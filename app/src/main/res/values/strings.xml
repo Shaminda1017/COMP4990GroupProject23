@@ -28,4 +28,10 @@
     <string name="enter_username">Enter Username</string>
     <string name="specialization">Specialization</string>
     <string name="hospital">Hospital</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="download_file">Download File</string>
+    <string name="upload_file">Upload File</string>
+    <string name="patient_upload_document_page">patient upload document page</string>
+    <string name="patient_grant_permission_page">Patient grant permission page</string>
+    <string name="grant_permission">Grant Permission</string>
 </resources>

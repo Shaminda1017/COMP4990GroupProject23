@@ -1,55 +1,81 @@
 package com.example.a1;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder> {
 
-    private List<HelperClass> doctorList;
+    private List<HelperClass> dataList;
+    private OnItemClickListener mListener; // Listener member variable
 
-    public DoctorAdapter(List<HelperClass> doctorList) {
-        this.doctorList = doctorList;
+    // Constructor
+    public DoctorAdapter(List<HelperClass> dataList) {
+        this.dataList = dataList;
+    }
+
+    // Interface for item click listener
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // Setter method for the listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_item, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_doctor, parent, false);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        HelperClass doctor = doctorList.get(position);
+        HelperClass doctor = dataList.get(position);
         holder.bind(doctor);
     }
 
     @Override
     public int getItemCount() {
-        return doctorList.size();
+        return dataList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView doctorNameTextView;
-        private TextView doctorSpecializationTextView;
-        private TextView doctorHospitalTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textViewDoctorName;
+        private final TextView textViewDoctorSpecialization;
+        private final TextView textViewDoctorHospital;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            doctorNameTextView = itemView.findViewById(R.id.doctor_name);
-            doctorSpecializationTextView = itemView.findViewById(R.id.doctor_specialization);
-            doctorHospitalTextView = itemView.findViewById(R.id.doctor_hospital);
+            textViewDoctorName = itemView.findViewById(R.id.textview_doctor_name);
+            textViewDoctorSpecialization = itemView.findViewById(R.id.textview_doctor_specialization);
+            textViewDoctorHospital = itemView.findViewById(R.id.textview_doctor_hospital);
+
+            // Set click listener for the item view
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
 
         public void bind(HelperClass doctor) {
-            doctorNameTextView.setText(doctor.getFullName());
-            doctorSpecializationTextView.setText(doctor.getSpecialization());
-            doctorHospitalTextView.setText(doctor.getHospital());
+            textViewDoctorName.setText(doctor.getFullName());
+            textViewDoctorSpecialization.setText(doctor.getSpecialization());
+            textViewDoctorHospital.setText(doctor.getHospital());
         }
     }
 }
