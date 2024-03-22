@@ -80,10 +80,8 @@ public class PatientGrantPermission extends AppCompatActivity {
                 doctorList.clear(); // Clear previous data
                 for (DataSnapshot doctorSnapshot : dataSnapshot.getChildren()) {
                     String doctorId = doctorSnapshot.getKey();
-                    // Now you have the doctorId (e.g., "doctor1")
-                    // You can retrieve specific data for each doctor if needed
-                    // For example:
-                    String doctorName = doctorSnapshot.child("fullName").getValue(String.class); // Assuming you stored doctor's full name
+
+                    String doctorName = doctorSnapshot.child("fullName").getValue(String.class);
                     String doctorSpecialization = doctorSnapshot.child("specialization").getValue(String.class);
                     String doctorHospital = doctorSnapshot.child("hospital").getValue(String.class);
 
@@ -144,8 +142,7 @@ public class PatientGrantPermission extends AppCompatActivity {
         // Set the data to be saved
         permissionsRef.child(permissionId).child("doctorId").setValue(doctorId);
         permissionsRef.child(permissionId).child("patientId").setValue(patientId);
-        // You can set additional data like permission date, etc.
-        // permissionsRef.child(permissionId).child("date").setValue(ServerValue.TIMESTAMP);
+
     }
 
 }

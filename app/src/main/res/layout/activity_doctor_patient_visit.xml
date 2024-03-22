@@ -23,8 +23,9 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="80dp"
         android:text="Doctor Patient visit page"
-        android:textColor="@color/black"
         android:textAlignment="center"
+        android:typeface="serif"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <Button

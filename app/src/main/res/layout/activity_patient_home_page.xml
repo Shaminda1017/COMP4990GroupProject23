@@ -28,13 +28,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/welcome"
-        android:textAlignment="center"
-        android:textSize="20sp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/icon_php"
         app:layout_constraintVertical_bias="0.119"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:textAlignment="center"
+        android:typeface="serif"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

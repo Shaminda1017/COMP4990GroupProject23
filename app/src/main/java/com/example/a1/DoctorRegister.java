@@ -66,8 +66,10 @@ public class DoctorRegister extends AppCompatActivity {
                 } else if (!password.equals(rePassword)) {
                     Toast.makeText(DoctorRegister.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    HelperClass helperClass = new HelperClass(fullName, email);
-                    reference.child(userName).setValue(helperClass);
+                    HelperClass helperClass = new HelperClass(fullName, email, phone, hospital, userName, special, password);
+                    //reference.child(userName).setValue(helperClass);
+                    reference.child(String.valueOf(userName)).setValue(helperClass);
+
 
                     // Assuming 'users' node already exists in your Firebase Realtime Database
                     Toast.makeText(DoctorRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();

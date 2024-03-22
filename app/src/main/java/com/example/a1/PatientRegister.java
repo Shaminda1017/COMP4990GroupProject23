@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PatientRegister extends AppCompatActivity {
     Button btn_register;
-    EditText et_patient_name, et_patient_email, et_patient_reg, et_patient_phone, et_patient_pw;
+    EditText et_patient_name, et_patient_email, et_userName, et_patient_phone, et_patient_pw;
     DatabaseReference databaseReference;
     FirebaseDatabase databasep;
 
@@ -26,7 +26,7 @@ public class PatientRegister extends AppCompatActivity {
         btn_register = findViewById(R.id.patient_registration_button);
         et_patient_name = findViewById(R.id.et_patient_full_name);
         et_patient_email = findViewById(R.id.et_patient_email);
-        et_patient_reg = findViewById(R.id.et_patient_username);
+        et_userName = findViewById(R.id.et_patient_username);
         et_patient_phone = findViewById(R.id.phone_patient);
         et_patient_pw = findViewById(R.id.et_patient_password);
 
@@ -42,18 +42,19 @@ public class PatientRegister extends AppCompatActivity {
 
                 String fullName = et_patient_name.getText().toString().trim();
                 String email = et_patient_email.getText().toString().trim();
+                String userName = et_userName.getText().toString().trim();
                 String phone = et_patient_phone.getText().toString().trim();
-                String regNumber = et_patient_reg.getText().toString().trim();
                 String password = et_patient_pw.getText().toString().trim();
 
-                if (!fullName.isEmpty() && !email.isEmpty() && !phone.isEmpty() && !regNumber.isEmpty() && !password.isEmpty()) {
+
+                if (!fullName.isEmpty() && !email.isEmpty() && !userName.isEmpty() && !phone.isEmpty() && !password.isEmpty()) {
                     // Create a new instance of HelperClass with the provided data
-                    HelperClass patient = new HelperClass(fullName, email, phone, regNumber, password);
+                    HelperClass patient = new HelperClass(fullName, email, userName, phone, password);
+                    databaseReference.child(userName).setValue(patient);
 
                     // Get a reference to the "Patients" node in your Firebase database
                     DatabaseReference patientsRef = FirebaseDatabase.getInstance().getReference().child("Patients");
 
-                    // Push the patient data to the database
                     patientsRef.push().setValue(patient);
 
                     Toast.makeText(PatientRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();

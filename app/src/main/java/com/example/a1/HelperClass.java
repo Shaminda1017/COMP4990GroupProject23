@@ -1,11 +1,10 @@
 package com.example.a1;
 
-public class HelperClass {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-    // Default constructor
-    public HelperClass() {
-        // Initialize any default values if needed
-    }
+public class HelperClass {
 
     private String fullName;
     private String email;
@@ -13,52 +12,104 @@ public class HelperClass {
     private String userName;
     private String password;
 
+    // Medical report fields
     private String reportType;
     private String hospital;
     private String fileUrl;
-    private String fileName;
 
+    // Doctor fields
     private String specialization;
     private String licenseNumber;
 
-    private boolean selected; // Indicates whether the doctor is selected
-    private String doctorId;
-    private String patientName;
+    // Message fields
+    private String messageId;
+    private String senderId;
+    private String receiverId;
+    private String messageContent;
+    private long timestamp;
+    private String encryptedMessageContent;
+    private String id;
+    private String senderName;
+    private String receiverName;
 
+    // Default constructor
+    public HelperClass() {
+        // Initialize any default values if needed
+    }
 
-    // Constructors
+    // Constructors for patient registration, medical report, and message
     public HelperClass(String fullName, String email) {
         this.fullName = fullName;
         this.email = email;
     }
+    public HelperClass(String senderName, String receiverName, String messageContent) {
+        this.senderName = senderName;
+        this.receiverName = receiverName;
+        this.messageContent = messageContent;
+        this.timestamp = System.currentTimeMillis(); // Set the current timestamp
+    }
 
-    public HelperClass(String fullName, String email, String phone, String userName, String password) {
+    public HelperClass( String fileUrl, String senderName, String receiverName, String messageContent) {
+        this.fileUrl = fileUrl;
+        this.senderName = senderName;
+        this.receiverName = receiverName;
+        this.messageContent = messageContent;
+        this.timestamp = System.currentTimeMillis(); // Set the current timestamp
+    }
+    public HelperClass(String fullName, String email,  String userName, String phone, String password) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.userName = userName;
         this.password = password;
     }
-
-    public HelperClass(String fullName, String reportType, String hospital, String fileUrl) {
+    public HelperClass(String fullName, String email, String phone, String hospital, String userName, String specialization, String password) {
         this.fullName = fullName;
-        this.reportType = reportType;
+        this.email = email;
+        this.phone = phone;
+        this.userName = userName;
+        this.password = password;
         this.hospital = hospital;
-        this.fileUrl = fileUrl;
-    }
-    public HelperClass(String patientName, String fileName, String fileUrl) {
-        this.patientName = patientName;
-        this.fileName = fileName;
-        this.fileUrl = fileUrl;
+        this.specialization = specialization;
     }
 
-    public String getPatientName() {
-        return patientName;
+    // Method to get formatted timestamp
+    public String getFormattedTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date(timestamp));
+    }
+
+
+    // Getters and setters for senderName and receiverName
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+
+    // Setter method for doctor's ID
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    // Getter method for doctor's ID
+    public String getId() {
+        return id;
     }
 
 
     // Getters and setters for all fields
-
     public String getFullName() {
         return fullName;
     }
@@ -139,37 +190,71 @@ public class HelperClass {
         this.licenseNumber = licenseNumber;
     }
 
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getMessageContent() {
+        return messageContent;
+    }
+
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    // Methods for encryption and decryption
+    public void encryptMessageContent() {
+        // Implement encryption algorithm (e.g., AES)
+        // Store the encrypted message in encryptedMessageContent
+    }
+
+    public String decryptMessageContent() {
+        // Implement decryption algorithm (e.g., AES)
+        // Decrypt the encrypted message content
+        return ""; // Return decrypted message
+    }
+
+    // Getter and setter for encryptedMessageContent
+    public String getEncryptedMessageContent() {
+        return encryptedMessageContent;
+    }
+
+    public void setEncryptedMessageContent(String encryptedMessageContent) {
+        this.encryptedMessageContent = encryptedMessageContent;
+    }
+
     public boolean isSelected() {
-        return selected;
+        return false;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    // Setter for doctorId
-    public void setId(String doctorId) {
-        this.doctorId = doctorId;
-    }
-
-    // Getter for doctorId
-    public String getId() {
-        return doctorId;
-    }
-
-    // Method to toggle the selection state of the doctor
-    public void toggleSelection() {
-        selected = !selected;
-    }
-
-    // Setter for file name
     public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
-
-    // Getter for file name
-    public String getFileName() {
-        return fileName;
-    }
-
 }
